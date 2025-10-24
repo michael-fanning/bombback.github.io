@@ -46,7 +46,7 @@ git mv README.md new_filename.md
     </style>
 </head>
 <body>
-    <h1>Mr. Baumback is lowkey a FREAK</h1>
+    <h1>Baumback Child Touching Simulator 3d</h1>
     <p>Click tiles to reveal children. Find a cop and lose!</p>
     <div class="grid" id="grid"></div>
     <p id="status">Children Kidnapped: 1</p>
@@ -62,7 +62,7 @@ git mv README.md new_filename.md
 
     <script>
         const gridSize = 5;
-        let balance = 100;
+        let balance = 1;
         let mineIndex;
         let revealedCells = 0;
         let gameEnded = false;
@@ -94,19 +94,19 @@ git mv README.md new_filename.md
 
             if (index === mineIndex) {
                 cell.classList.add("mine");
-                cell.innerHTML = "👶";
+                cell.innerHTML = "👮";
                 balance = Math.floor(balance / 2);
-                document.getElementById("status").innerText = `You hit the mine! Balance: $${balance}`;
+                document.getElementById("status").innerText = `The cops caught you! Children Kidnapped: ${balance}`;
                 hitMine = true; // Player has hit a mine
                 showResetButton(); // Show the reset button
                 freezeBoard();
                 checkEndGame();
             } else {
                 cell.classList.add("revealed");
-                cell.innerHTML = "👮";
+                cell.innerHTML = "👶";
                 revealedCells++;
                 balance += 1;
-                document.getElementById("status").innerText = `Children Kidnapped: {balance}`;
+                document.getElementById("status").innerText = `Children Kidnapped: ${balance}`;
                 checkVictory();
             }
         }
@@ -150,7 +150,7 @@ git mv README.md new_filename.md
             hitMine = false; // Reset hitMine flag
             generateMine();
             createGrid();
-            document.getElementById("status").innerText = `Children Kidnapped: {balance}`;
+            document.getElementById("status").innerText = `Children Kidnapped: ${balance}`;
             document.getElementById("endScreen").classList.add("hidden");
             document.getElementById("resetContainer").style.display = "none"; // Hide reset button after resetting
             document.querySelectorAll(".cell").forEach(cell => cell.style.pointerEvents = "auto");
