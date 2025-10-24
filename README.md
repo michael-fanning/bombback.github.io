@@ -49,7 +49,7 @@ git mv README.md new_filename.md
     <h1>Baumback Child Touching Simulator 3d</h1>
     <p>Click tiles to reveal children. Find a cop and lose!</p>
     <div class="grid" id="grid"></div>
-    <p id="status">Children Kidnapped: 1</p>
+    <p id="status">Children Kidnapped: 0</p>
 
     <!-- Reset Button now appears only after hitting a mine -->
     <div id="resetContainer">
@@ -62,7 +62,7 @@ git mv README.md new_filename.md
 
     <script>
         const gridSize = 5;
-        let balance = 1;
+        let balance = 0;
         let mineIndex;
         let revealedCells = 0;
         let gameEnded = false;
@@ -95,7 +95,11 @@ git mv README.md new_filename.md
             if (index === mineIndex) {
                 cell.classList.add("mine");
                 cell.innerHTML = "👮";
-                balance = Math.floor(balance / 2);
+                if (balance < 10) {
+                    balance = Math.floor(balance / 2);
+                } else {
+                    balance -= 5;
+                }
                 document.getElementById("status").innerText = `The cops caught you! Children Kidnapped: ${balance}`;
                 hitMine = true; // Player has hit a mine
                 showResetButton(); // Show the reset button
@@ -126,12 +130,7 @@ git mv README.md new_filename.md
 
         function checkEndGame() {
             if (balance <= 0) {
-                document.getElementById("endMessage").innerText = "The cops took back ALL the children :(";
-                document.getElementById("endScreen").classList.remove("hidden");
-                gameEnded = true;
-                freezeBoard();
-            } else if (balance >= 500) { // Win condition lowered from 1000 to 500
-                document.getElementById("endMessage").innerText = "99% of gamblers quit before winning!";
+                document.getElementById("endMessage").innerText = "The cops took back ALL the children";
                 document.getElementById("endScreen").classList.remove("hidden");
                 gameEnded = true;
                 freezeBoard();
